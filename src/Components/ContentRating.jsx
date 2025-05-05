@@ -12,13 +12,13 @@ class ContentRating extends Component {
         handleLike: () => {
             this.setState({
                 likes: this.state.likes + 1,
-                totalRatings: this.state.totalRatings + 1
+                //totalRatings: this.state.totalRatings + 1
             });
         },
         handleDisLike: () => {
             this.setState((prevState) => ({
                 dislikes: prevState.dislikes + 1,
-                totalRatings: this.state.totalRatings - 1
+                //totalRatings: this.state.totalRatings - 1
             }));
         },
         handleRatings: () => {
@@ -28,12 +28,20 @@ class ContentRating extends Component {
         }
     };
   }
-  
+  shouldComponentUpdate() {
+    this.setState (() => {
+        this.state.totalRatings = this.state.likes - this.state.dislikes;
+    })
+    console.log("shouldComponentUpdate" + this.state.totalRatings);
+    return true;
+    }
+
   render() {
+    console.log("Inside render")
     return (
      <div className='content-rating'>
         <p>
-            Like or Dislike Ratings: {this.state.handleRatings}
+            Like or Dislike Ratings: {this.state.totalRatings}
         </p>
         <div className='rating-buttons'>
             <button className='like-button' onClick={this.state.handleLike}>
