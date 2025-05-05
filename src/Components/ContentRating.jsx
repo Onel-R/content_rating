@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import './ContentRating.css';
 
 class ContentRating extends Component {
@@ -11,14 +11,14 @@ class ContentRating extends Component {
         totalRatings: 0,
         handleLike: () => {
             this.setState({
-                likes: this.state.likes + 2,
-                totalRatings: this.state.likes - this.state.dislikes
+                likes: this.state.likes + 1,
+                totalRatings: this.state.totalRatings + 1
             });
         },
         handleDisLike: () => {
             this.setState((prevState) => ({
                 dislikes: prevState.dislikes + 1,
-                totalRatings: prevState.likes - prevState.dislikes
+                totalRatings: this.state.totalRatings - 1
             }));
         },
         handleRatings: () => {
@@ -28,11 +28,12 @@ class ContentRating extends Component {
         }
     };
   }
+  
   render() {
     return (
      <div className='content-rating'>
         <p>
-            Like or Dislike Ratings: {this.state.totalRatings}
+            Like or Dislike Ratings: {this.state.handleRatings}
         </p>
         <div className='rating-buttons'>
             <button className='like-button' onClick={this.state.handleLike}>
